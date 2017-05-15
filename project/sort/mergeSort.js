@@ -13,10 +13,10 @@
 
       let mid = parseInt(arr.length / 2);
       let left = arr.slice(0,mid);
-      let rigth = arr.slice(mid+1,arr.length-1);
+      let right = arr.slice(mid,arr.length);
 
-      
-      return merge(mergeSort(),mergeSort());
+
+      return merge(mergeSort(left),mergeSort(right));
     }
 
     function merge(left, right){
@@ -32,24 +32,20 @@
 
 
       //남아 있는 배열의 내용을 순서대로 넣는다.
-      while(left.length){
-        temp.concat(left);
+      if(left.length){
+        temp = temp.concat(left);
       }
 
-      while(right.length){
-        temp.concat(right);
+      if(right.length){
+        temp = temp.concat(right);
       }
 
 
       return temp;
-
-
-
     }
 
 
   main();
-
 
 
 

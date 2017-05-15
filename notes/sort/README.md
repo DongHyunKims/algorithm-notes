@@ -148,11 +148,13 @@ public class MySort {
 - 가장 중요한 것은 merge 하는 과정이다. 정렬된 두개의 리스트를 하나의 배열로 재 배치 하는 과정이다.
 - 마지막 2개의 리스트는 이미 정렬이 되어있는 상태이다. i,j,k 를 이용한다.
 - 추가 배열을 이용한다. 
+- n log n
+- DB 사용 100GB를 정렬 한다면 50 / 50 25 / 25 .... 쪼갤수 있는 만큼 쪼개고 disk에서 다시 merge 한다.
 
 
 **코드**
 
-**javascript**
+**javascript1**
 ~~~javascript
   (function(){
 
@@ -196,6 +198,114 @@ public class MySort {
     }
   main();
   })();
+~~~
+
+**javascript2**
+~~~javascript
+
+function mergeSort(arr){
+
+  let length = arr.length;
+  if(length < 2){
+    return arr;
+  }
+
+  let mid = parseInt( length / 2);
+  let left = arr.slice(0,mid);
+  let right = arr.slice(mid,length);
+  return merge(mergeSort(left),mergeSort(right));
+
+}
+
+function merge(arr1, arr2){
+  let temp = [];
+  let tempIdx = 0;
+
+  let arr1Start = 0;
+  let arr1End = arr1.length-1
+  let arr2Start = 0;
+  let arr2End = arr2.length-1    
+  
+  while((arr1Start <= arr1End) && (arr2Start <= arr2End)){
+
+    if(arr1[arr1Start] <= arr2[arr2Start]){
+      temp[tempIdx] = arr1[arr1Start];
+      arr1Start++;
+    }else{
+      temp[tempIdx] = arr2[arr2Start];
+      arr2Start++;
+    }
+
+    tempIdx++;
+
+  }
+
+  while(arr1Start <= arr1End){
+    temp[tempIdx] = arr1[arr1Start];
+    arr1Start++;
+    tempIdx++;
+  }
+
+
+  while(arr2Start <= arr2End){
+    temp[tempIdx] = arr2[arr2Start];
+    arr2Start++;
+    tempIdx++;
+  }
+
+  console.log(temp);
+
+}
+~~~
+
+**java**
+~~~Java
+public void mergeSort(int[] arr) {
+	_mergeSort(arr, 0, arr.length - 1);
+}
+	
+private void _mergeSort(int[] arr, int left, int right) {
+	int middle = (left + right)/2;
+	if (left < right) {
+		_mergeSort(arr, left, middle);
+		_mergeSort(arr, middle + 1, right);	
+		merge(arr, left, middle, right);
+	}
+		
+}
+	
+private void merge(int[] arr, int left, int middle, int right) {
+   int[] helper = new int[arr.length];
+
+   for (int i = left; i <=right; i++) //왼쪽 부터 오른쪽 까지만 복사 
+      helper[i] = arr[i];
+
+
+    int helperLeft = left;
+    int helperRight = middle+1
+    int current = left;  
+
+    while((helperLeft <= middle) && (helperRight <= right)){
+
+      if(helper[helperLeft] <= helper[helperRight]){
+        arr[current] = arr1[helperLeft];
+        helperLeft++;
+      }else{
+        arr[current] = arr1[helperRight];
+        helperRight++;
+      }
+
+      current++;
+
+    }
+
+  int remain = middle - helperLeft; //오른 쪽은 그대로 놔두면 된다. 원본 데이터를 바꾸기 때문에!!
+
+  for(int i = 0; i < remain; i++){
+    arr[current + i] = helper[helperLeft + i];
+  }
+		
+}
 ~~~
 
 
