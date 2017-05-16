@@ -85,7 +85,7 @@
          currentNode.left = newNode;
          break;
        }else{
-         currentNode = currentNode.left;
+         currentNode = currentNode.left;	
        }
        //새로 들어온 값이 현재 노드의 값보다 크면 오른쪽.
        }else{
