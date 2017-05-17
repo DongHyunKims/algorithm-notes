@@ -52,7 +52,14 @@
     console.log(bts);
 
 
-    console.log(find(bts.root,9));
+
+
+
+    console.log(findNode(bts.root,9));
+
+    console.log(deleteNode(bts.root,9));
+    console.log(findNode(bts.root,9));
+
 
   }
 
@@ -69,6 +76,8 @@
 
   BinarySearchTree.prototype.push = function (val){
     let root = this.root;
+
+
     //root가 없으면
     if(!root){
       this.root = new Node(val);
@@ -85,7 +94,7 @@
          currentNode.left = newNode;
          break;
        }else{
-         currentNode = currentNode.left;	
+         currentNode = currentNode.left;
        }
        //새로 들어온 값이 현재 노드의 값보다 크면 오른쪽.
        }else{
@@ -98,27 +107,52 @@
        }
    }
   }
-  //원소가 찾는 find 메소드	
-  function find(bst, key){
-      if(bst === null){
+
+  function findNode(bstNode, key){
+      if(bstNode === null){
         return "존재하지 않는다.";
       }
 
-      if(bst.value === key){
-        return bst.value;
+      if(bstNode.value === key){
+        return bstNode.value;
       }
 
 
-      if(bst.value > key){
-          return find(bst.left, key);
+      if(bstNode.value > key){
+          return findNode(bstNode.left, key);
       }else{
-          return find(bst.right, key);
+          return findNode(bstNode.right, key);
       }
+  }
+
+
+
+  function deleteNode(bstNode, key){
+
+    if(bstNode === null){
+      return "존재하지 않는다.";
+    }
+
+    if(bstNode.value === key){
+
+      bstNode.value = null;
+      return "삭제완료";
+    }
+
+
+    if(bstNode.value > key){
+        return deleteNode(bstNode.left, key);
+    }else{
+        return deleteNode(bstNode.right, key);
+    }
   }
 
   main();
 
+
+
 })()
+
 ~~~
 
 
