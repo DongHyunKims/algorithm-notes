@@ -15,11 +15,7 @@
     console.log(bts);
 
 
-
-
-
     console.log(findNode(bts.root,9));
-
     console.log(deleteNode(bts.root,9));
     console.log(findNode(bts.root,9));
 
@@ -97,8 +93,8 @@
     }
 
     if(bstNode.value === key){
-
-      bstNode.value = null;
+      bstNode.value = bstNode.right;
+      bstNode.right = null;
       return "삭제완료";
     }
 
