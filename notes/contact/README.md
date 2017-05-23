@@ -27,11 +27,10 @@ function isPrime(n){
 ## 2. 최대 공약수
 
 - a의 약수 이면서 b의 약수인 수 중 최대값이 바로 최대공약수
+- 두수를 나눌수 있는 가장 작은수
 
 java
 ~~~Java
-
-
 int get_gcd(int a,int b)
 {
     int max_div = 1;      //가장 큰 공약수를 저장할 변수
@@ -47,13 +46,11 @@ int get_gcd(int a,int b)
 }
 ~~~
 
-javascript
-~~~javascript
-//추후 작성
-~~~
+
 
 ## 3. 최소 공배수
 - 최소공배수는 최대공약수와는 반대로, 두 정수가 공통적으로 가지는 배수 중 가장 작은 값
+- 두수 곱한 값 / 최대 공약수
 
 java
 ~~~Java
@@ -75,12 +72,15 @@ int get_gcd(int a,int b)
 
 javascript
 ~~~Javascript
-//추후작성
+function lcm(a,b){
+  return (a*b) / gcd(a,b);
+}
 ~~~
 
 
 ## 4. 유클리드 호제법
 -  유클리드 호제법 알고리즘을 사용하면 최대 공약수를 빠르게 계산
+-  a = b , b = 큰수 % 작은수 (재귀)
 -  https://ko.wikipedia.org/wiki/%EC%9C%A0%ED%81%B4%EB%A6%AC%EB%93%9C_%ED%98%B8%EC%A0%9C%EB%B2%95
 
 java
@@ -108,6 +108,17 @@ int gcd2(int a,int b)
 int gcd3(int a, int b)
 { //삼항 연산자 축약형 
     return (a % b == 0 ? b : gcd3(b,a%b));
+}
+~~~
+
+javascript
+~~~javascript
+//추후 작성
+function gcd(a,b){
+  if(b === 0){
+    return a;
+  }
+  return gcd(b, a%b);
 }
 ~~~
 
